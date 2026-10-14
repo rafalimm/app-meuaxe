@@ -1,0 +1,392 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* ------------------------------------------------------------------ */
+/* Tokens semânticos                                                   */
+/* ------------------------------------------------------------------ */
+
+:root {
+  --bg: #f7f6f0;
+  --bg-soft: #eff1e9;
+  --surface: #ffffff;
+  --surface-2: #f3f4ee;
+  --surface-3: #e9ece3;
+  --line: #e3e6da;
+  --line-2: #ccd4c5;
+  --ink: #24332b;
+  --ink-2: #6b7770;
+  --ink-3: #98a49b;
+  --on-forest: #f2f4ec;
+  --on-forest-2: #a8b9a1;
+}
+
+.dark {
+  --bg: #0c1f19;
+  --bg-soft: #0f2620;
+  --surface: #142d24;
+  --surface-2: #193830;
+  --surface-3: #20443a;
+  --line: #23453a;
+  --line-2: #31584a;
+  --ink: #e9efea;
+  --ink-2: #a3b4a8;
+  --ink-3: #71857a;
+  --on-forest: #f2f4ec;
+  --on-forest-2: #a8b9a1;
+}
+
+/* ------------------------------------------------------------------ */
+/* Tema Tailwind                                                       */
+/* ------------------------------------------------------------------ */
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-bg-soft: var(--bg-soft);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-surface-3: var(--surface-3);
+  --color-line: var(--line);
+  --color-line-2: var(--line-2);
+  --color-ink: var(--ink);
+  --color-ink-2: var(--ink-2);
+  --color-ink-3: var(--ink-3);
+  --color-on-forest: var(--on-forest);
+  --color-on-forest-2: var(--on-forest-2);
+
+  --color-forest: #173d30;
+  --color-forest-deep: #102d24;
+  --color-forest-bright: #1f5443;
+  --color-sage: #a8b9a1;
+  --color-sage-soft: #e7eee6;
+  --color-gold: #c7a96b;
+  --color-gold-deep: #a98848;
+  --color-gold-soft: #efe6d2;
+  --color-cream: #f7f6f0;
+
+  --color-danger: #b0432f;
+  --color-danger-soft: #f8e7e2;
+  --color-success: #2f7d4f;
+  --color-success-soft: #e2efe6;
+  --color-warning: #a8741f;
+  --color-warning-soft: #f6ecd8;
+
+  --font-sans: "Inter Variable", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-serif: "Lora Variable", Georgia, "Times New Roman", serif;
+
+  --shadow-card: 0 1px 2px rgb(23 61 48 / 0.05), 0 6px 24px -10px rgb(23 61 48 / 0.12);
+  --shadow-lift: 0 2px 8px rgb(23 61 48 / 0.08), 0 20px 44px -16px rgb(16 45 36 / 0.28);
+  --shadow-pop: 0 4px 10px rgb(16 45 36 / 0.06), 0 12px 32px -8px rgb(16 45 36 / 0.22);
+
+  --animate-rise: rise 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+  --animate-fade: fade 0.4s ease both;
+  --animate-pop: pop 0.28s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes pop {
+  from {
+    opacity: 0;
+    transform: scale(0.96) translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+@keyframes floaty {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Base                                                                */
+/* ------------------------------------------------------------------ */
+
+html {
+  scroll-behavior: smooth;
+}
+
+html.large-text {
+  font-size: 17.5px;
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: #a8b9a1;
+  color: #102d24;
+}
+
+:focus-visible {
+  outline: 2px solid #c7a96b;
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+.font-display {
+  font-family: var(--font-serif);
+  letter-spacing: -0.015em;
+}
+
+mark {
+  background: #efe6d2;
+  color: inherit;
+  border-radius: 3px;
+  padding: 0 2px;
+}
+
+.dark mark {
+  background: #4d4426;
+}
+
+/* Movimento reduzido */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+html.reduce-motion *,
+html.reduce-motion *::before,
+html.reduce-motion *::after {
+  animation-duration: 0.01ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.01ms !important;
+  scroll-behavior: auto !important;
+}
+
+/* Barra de rolagem discreta */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--line-2) transparent;
+}
+
+*::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: var(--line-2);
+  border-radius: 8px;
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* ------------------------------------------------------------------ */
+/* Editor TipTap                                                       */
+/* ------------------------------------------------------------------ */
+
+.tiptap {
+  outline: none;
+  font-size: 0.975rem;
+  line-height: 1.75;
+  color: var(--ink);
+  min-height: 220px;
+}
+
+.tiptap > *:first-child {
+  margin-top: 0;
+}
+
+.tiptap p {
+  margin: 0 0 0.7em;
+}
+
+.tiptap h2 {
+  font-family: var(--font-serif);
+  font-size: 1.45em;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  margin: 1.4em 0 0.5em;
+  color: var(--ink);
+}
+
+.tiptap h3 {
+  font-family: var(--font-serif);
+  font-size: 1.2em;
+  font-weight: 600;
+  margin: 1.2em 0 0.4em;
+  color: var(--ink);
+}
+
+.tiptap ul,
+.tiptap ol {
+  padding-left: 1.4em;
+  margin: 0 0 0.8em;
+}
+
+.tiptap ul {
+  list-style: disc;
+}
+
+.tiptap ol {
+  list-style: decimal;
+}
+
+.tiptap li {
+  margin: 0.2em 0;
+}
+
+.tiptap li p {
+  margin: 0;
+}
+
+.tiptap blockquote {
+  border-left: 3px solid #c7a96b;
+  padding: 0.35em 0 0.35em 1em;
+  margin: 1em 0;
+  font-family: var(--font-serif);
+  font-style: italic;
+  color: var(--ink-2);
+  background: color-mix(in srgb, #c7a96b 7%, transparent);
+  border-radius: 0 0.5rem 0.5rem 0;
+}
+
+.tiptap a {
+  color: #a98848;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-color: color-mix(in srgb, #a98848 45%, transparent);
+  cursor: pointer;
+}
+
+.tiptap a:hover {
+  text-decoration-color: #a98848;
+}
+
+.tiptap img {
+  max-width: 100%;
+  border-radius: 0.9rem;
+  margin: 0.8em 0;
+  border: 1px solid var(--line);
+}
+
+.tiptap hr {
+  border: none;
+  border-top: 1px solid var(--line-2);
+  margin: 1.6em 0;
+}
+
+.tiptap code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.88em;
+  background: var(--surface-2);
+  border: 1px solid var(--line);
+  border-radius: 5px;
+  padding: 0.1em 0.35em;
+}
+
+.tiptap pre {
+  background: #102d24;
+  color: #e7eee6;
+  border-radius: 0.75rem;
+  padding: 0.9em 1.1em;
+  overflow-x: auto;
+  margin: 1em 0;
+  font-size: 0.88em;
+}
+
+.tiptap pre code {
+  background: transparent;
+  border: none;
+  color: inherit;
+  padding: 0;
+}
+
+.tiptap ul[data-type="taskList"] {
+  list-style: none;
+  padding-left: 0.2em;
+}
+
+.tiptap ul[data-type="taskList"] li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.55em;
+}
+
+.tiptap ul[data-type="taskList"] li > label {
+  margin-top: 0.32em;
+  flex-shrink: 0;
+}
+
+.tiptap ul[data-type="taskList"] li > div {
+  flex: 1;
+}
+
+.tiptap ul[data-type="taskList"] input[type="checkbox"] {
+  accent-color: #173d30;
+  width: 1rem;
+  height: 1rem;
+  cursor: pointer;
+}
+
+.dark .tiptap ul[data-type="taskList"] input[type="checkbox"] {
+  accent-color: #c7a96b;
+}
+
+.tiptap ul[data-type="taskList"] li[data-checked="true"] > div {
+  color: var(--ink-3);
+  text-decoration: line-through;
+}
+
+.tiptap p.is-editor-empty:first-child::before {
+  color: var(--ink-3);
+  content: attr(data-placeholder);
+  float: left;
+  height: 0;
+  pointer-events: none;
+}
+
+/* ------------------------------------------------------------------ */
+/* Textura sutil de grão para fundos escuros                           */
+/* ------------------------------------------------------------------ */
+
+.grain::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.5;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)' opacity='0.35'/%3E%3C/svg%3E");
+}
